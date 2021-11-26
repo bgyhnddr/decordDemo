@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
     <!-- 引入样式 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css" />
+    <style>
+      html,
+      body,
+      #app {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #app > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      <mt-button @click.native="handleClick">按钮</mt-button>
+      <div v-if="isLogin">
+        <div id="qrCode" ref="qrCodeDiv">
+          登录成功信息展示
+        </div>
+      </div>
+      <div v-else>
+        <mt-field
+          label="用户名"
+          placeholder="请输入用户名"
+          v-model="username"
+        ></mt-field>
+        <mt-field
+          label="密码"
+          placeholder="请输入密码"
+          type="password"
+          v-model="password"
+        ></mt-field>
+        <mt-button @click.native="handleClick">登录</mt-button>
+      </div>
     </div>
   </body>
   <!-- 先引入 Vue -->
@@ -16,11 +53,20 @@
   <!-- 引入组件库 -->
   <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
   <script>
-    new Vue({
+    var app = new Vue({
       el: '#app',
+      data: {
+        isLogin: false,
+        username: '',
+        password: '',
+      },
       methods: {
         handleClick: function () {
-          this.$toast('Hello world!')
+          if (app.username == 'admin' && app.password == 'admin') {
+            app.isLogin = true
+          } else {
+            app.$toast('账号密码错误')
+          }
         },
       },
     })
