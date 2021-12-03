@@ -27,7 +27,12 @@
 
 <body>
   <div id="app">
-    <div v-if="isLogin" style="justify-content: start;align-items: flex-start;padding:8px;">
+    <div v-if="!isLogin">
+      <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
+      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
+      <mt-button @click.native="handleClick">登录</mt-button>
+    </div>
+    <div v-else style="justify-content: start;align-items: flex-start;padding:8px;">
       <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
         <div>线路名称：</div>
         <div style="flex:1">环城北路北062。</div>
@@ -103,11 +108,6 @@
       <div>
         <img style="width: 100%;" src="./6.jpg" />
       </div>
-    </div>
-    <div v-else>
-      <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
-      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
-      <mt-button @click.native="handleClick">登录</mt-button>
     </div>
   </div>
 </body>
