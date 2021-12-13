@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- 引入样式 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css" />
+    <style>
+        html,
+        body,
+        #app {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #app>div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" style="display: none;">
+        <div v-if="!isLogin">
+            <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
+            <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
+            <mt-button @click.native="handleClick">登录</mt-button>
+        </div>
+        <div v-else style="justify-content: start;align-items: flex-start;padding:8px;">
+            <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
+                <div>额外内容：</div>
+            </div>
+            <textarea v-model="ext" style="width: 100%;height: 200px;"></textarea>
+            <div>
+                <mt-button @click.native="sendExt">发送内容</mt-button>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- 先引入 Vue -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDgbHdjCM-cFPfuRsD1aMeaD_fLqj4AwjI",
+        authDomain: "test-a8a10.firebaseapp.com",
+        projectId: "test-a8a10",
+        storageBucket: "test-a8a10.appspot.com",
+        messagingSenderId: "824194438005",
+        appId: "1:824194438005:web:7a3892501e5d850bedb93c",
+        measurementId: "G-X2G946YGZ1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    var db = firebase.firestore();
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            isLogin: false,
+            ext: ''
+        },
+        methods: {
+            handleClick: function () {
+                if (app.username == 'admin' && app.password == 'admin') {
+                    app.isLogin = true
+                } else {
+                    app.$toast('账号密码错误')
+                }
+            },
+            sendExt: function () {
+                db.collection("demo").doc("doc").set({
+                    text: app.ext,
+                })
+                    .then(() => {
+                        console.log("Document successfully written!");
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document: ", error);
+                    });
+            }
+        },
+        created: function () {
+            document.getElementById("app").style = "display:block;"
+        }
+    })
+</script>
+
+</html>
