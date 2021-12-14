@@ -1,171 +1,315 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 引入样式 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css" />
+    <style>
+      html,
+      body,
+      #app {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <!-- 引入样式 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css" />
-  <style>
-    html,
-    body,
-    #app {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
+      #app > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" style="display: none;">
+      <div v-if="!isLogin">
+        <mt-field
+          label="用户名"
+          placeholder="请输入用户名"
+          v-model="username"
+        ></mt-field>
+        <mt-field
+          label="密码"
+          placeholder="请输入密码"
+          type="password"
+          v-model="password"
+        ></mt-field>
+        <mt-button @click.native="handleClick">登录</mt-button>
+      </div>
+      <div
+        v-else
+        style="justify-content: start; align-items: flex-start; padding: 8px;"
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>线路名称：</div>
+          <div style="flex: 1;">环城北路北062。</div>
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>孔位使用情况：</div>
+          <div style="flex: 1;">
+            <div style="padding-bottom: 4px;">
+              电缆井东西进出口都为12孔 使用2孔剩余10孔。
+            </div>
+            <div style="padding-bottom: 4px;">其中2孔为电力电缆。</div>
+            <div style="padding-bottom: 4px;">无光纤光缆。</div>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>线路名称为：</div>
+          <div style="flex: 1;">
+            <div style="padding-bottom: 4px;">
+              10kV炉兴线（无立一品2#户外箱式环网柜至10kV炉兴806线1#杆）360m
+            </div>
+            <div style="padding-bottom: 4px;">
+              10kV西周线（仙居变至西三路东1#环网柜）1734m
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>电缆型号为：</div>
+          <div style="flex: 1;">
+            <div style="padding-bottom: 4px;">YJV22-8.7/15-3X240</div>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>中间接头情况：</div>
+          <div style="flex: 1;">
+            <div style="padding-bottom: 4px;">无中间接头</div>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>除污情况：</div>
+          <div style="flex: 1;">
+            <div style="padding-bottom: 4px;">已于2021年8.20日除污。</div>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>1、电缆井周围环境图片：</div>
+        </div>
+        <div>
+          <img style="width: 100%;" src="./1.jpg" />
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>2、井口标签：</div>
+        </div>
+        <div>
+          <img style="width: 100%;" src="./2.jpg" />
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>3、立视图：</div>
+        </div>
+        <div>
+          <img style="width: 100%;" src="./3.png" />
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>4、轨迹图：</div>
+        </div>
+        <div>
+          <img style="width: 100%;" src="./4.png" />
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>5、井内东侧图：</div>
+        </div>
+        <div>
+          <img style="width: 100%;" src="./5.jpg" />
+        </div>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+          "
+        >
+          <div>6、井内西侧图：</div>
+        </div>
+        <div>
+          <img style="width: 100%;" src="./6.jpg" />
+        </div>
+
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+            width: 100%;
+          "
+        >
+          <div>额外内容：</div>
+          <textarea v-model="ext" style="flex: 1; height: 200px;"></textarea>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            padding-top: 12px;
+            width: 100%;
+            justify-content: flex-end;
+          "
+        >
+          <mt-button @click.native="sendExt">保存内容</mt-button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <!-- 先引入 Vue -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: 'AIzaSyDgbHdjCM-cFPfuRsD1aMeaD_fLqj4AwjI',
+      authDomain: 'test-a8a10.firebaseapp.com',
+      projectId: 'test-a8a10',
+      storageBucket: 'test-a8a10.appspot.com',
+      messagingSenderId: '824194438005',
+      appId: '1:824194438005:web:7a3892501e5d850bedb93c',
+      measurementId: 'G-X2G946YGZ1',
     }
 
-    #app>div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-  </style>
-</head>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig)
 
-<body>
-  <div id="app" style="display: none;">
-    <div v-if="!isLogin">
-      <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
-      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
-      <mt-button @click.native="handleClick">登录</mt-button>
-    </div>
-    <div v-else style="justify-content: start;align-items: flex-start;padding:8px;">
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>线路名称：</div>
-        <div style="flex:1">环城北路北062。</div>
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>孔位使用情况：</div>
-        <div style="flex:1">
-          <div style="padding-bottom: 4px;">电缆井东西进出口都为12孔 使用2孔剩余10孔。</div>
-          <div style="padding-bottom: 4px;">其中2孔为电力电缆。
-          </div>
-          <div style="padding-bottom: 4px;">无光纤光缆。</div>
-        </div>
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>线路名称为：</div>
-        <div style="flex:1">
-          <div style="padding-bottom: 4px;">10kV炉兴线（无立一品2#户外箱式环网柜至10kV炉兴806线1#杆）360m</div>
-          <div style="padding-bottom: 4px;">10kV西周线（仙居变至西三路东1#环网柜）1734m
-          </div>
-        </div>
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>电缆型号为：</div>
-        <div style="flex:1">
-          <div style="padding-bottom: 4px;">YJV22-8.7/15-3X240</div>
-        </div>
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>中间接头情况：</div>
-        <div style="flex:1">
-          <div style="padding-bottom: 4px;">无中间接头</div>
-        </div>
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>除污情况：</div>
-        <div style="flex:1">
-          <div style="padding-bottom: 4px;">已于2021年8.20日除污。</div>
-        </div>
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>1、电缆井周围环境图片：</div>
-      </div>
-      <div>
-        <img style="width: 100%;" src="./1.jpg" />
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>2、井口标签：</div>
-      </div>
-      <div>
-        <img style="width: 100%;" src="./2.jpg" />
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>3、立视图：</div>
-      </div>
-      <div>
-        <img style="width: 100%;" src="./3.png" />
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>4、轨迹图：</div>
-      </div>
-      <div>
-        <img style="width: 100%;" src="./4.png" />
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>5、井内东侧图：</div>
-      </div>
-      <div>
-        <img style="width: 100%;" src="./5.jpg" />
-      </div>
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;">
-        <div>6、井内西侧图：</div>
-      </div>
-      <div>
-        <img style="width: 100%;" src="./6.jpg" />
-      </div>
+    var db = firebase.firestore()
 
-      <div style="display: flex;flex-direction: row;align-items: top;padding-top: 12px;width: 100%;">
-        <div>额外内容：</div>
-        <div style="flex:1">
-          <div style="word-break: break-all;white-space: pre-wrap; padding-bottom: 4px;border: 1px solid #efefef;">{{ext}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-<!-- 先引入 Vue -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<!-- 引入组件库 -->
-<script src="https://unpkg.com/mint-ui/lib/index.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script>
-  var firebaseConfig = {
-    apiKey: "AIzaSyDgbHdjCM-cFPfuRsD1aMeaD_fLqj4AwjI",
-    authDomain: "test-a8a10.firebaseapp.com",
-    projectId: "test-a8a10",
-    storageBucket: "test-a8a10.appspot.com",
-    messagingSenderId: "824194438005",
-    appId: "1:824194438005:web:7a3892501e5d850bedb93c",
-    measurementId: "G-X2G946YGZ1"
-  };
+    db.collection('demo').doc('doc')
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-
-  var db = firebase.firestore();
-
-  var app = new Vue({
-    el: '#app',
-    data: {
-      isLogin: false,
-      username: '',
-      password: '',
-      ext: ''
-    },
-    methods: {
-      handleClick: function () {
-        if (app.username == 'admin' && app.password == 'admin') {
-          app.isLogin = true
-        } else {
-          app.$toast('账号密码错误')
-        }
+    var app = new Vue({
+      el: '#app',
+      data: {
+        isLogin: false,
+        username: '',
+        password: '',
+        ext: '',
       },
-    },
-    created: function () {
-      document.getElementById("app").style = "display:block;"
+      methods: {
+        handleClick: function () {
+          if (app.username == 'admin' && app.password == 'admin') {
+            app.isLogin = true
+          } else {
+            app.$toast('账号密码错误')
+          }
+        },
+        sendExt: function () {
+          db.collection('demo')
+            .doc('doc')
+            .set({
+              text: app.ext,
+            })
+            .then(() => {
+              app.$toast('保存成功')
+              console.log('Document successfully written!')
+            })
+            .catch((error) => {
+              app.$toast('保存失败：', error)
+              console.error('Error writing document: ', error)
+            })
+        },
+      },
+      created: function () {
+        document.getElementById('app').style = 'display:block;'
 
-      db.collection("demo").doc("doc")
-        .onSnapshot((doc) => {
-          app.ext = doc.data().text
-        });
-    }
-  })
-</script>
-
+        db.collection('demo')
+          .doc('doc')
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              app.ext = doc.data().text
+            } else {
+              // doc.data() will be undefined in this case
+              console.log('No such document!')
+            }
+          })
+          .catch((error) => {
+            console.log('Error getting document:', error)
+          })
+      },
+    })
+  </script>
 </html>
